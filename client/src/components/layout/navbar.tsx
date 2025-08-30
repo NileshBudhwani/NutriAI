@@ -53,11 +53,11 @@ export default function Navbar() {
 
           {/* Desktop Auth Buttons */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button variant="outline" data-testid="button-login">
-              Login
+            <Button asChild variant="outline" data-testid="button-login">
+              <Link href="/login">Login</Link>
             </Button>
-            <Button data-testid="button-signup">
-              Sign Up
+            <Button asChild data-testid="button-signup">
+              <Link href="/signup">Sign Up</Link>
             </Button>
           </div>
 
@@ -84,11 +84,11 @@ export default function Navbar() {
                   </Link>
                 ))}
                 <div className="pt-4 border-t space-y-2">
-                  <Button variant="outline" className="w-full" data-testid="button-mobile-login">
-                    Login
+                  <Button asChild variant="outline" className="w-full" data-testid="button-mobile-login">
+                    <Link href="/login">Login</Link>
                   </Button>
-                  <Button className="w-full" data-testid="button-mobile-signup">
-                    Sign Up
+                  <Button asChild className="w-full" data-testid="button-mobile-signup">
+                    <Link href="/signup">Sign Up</Link>
                   </Button>
                 </div>
               </div>

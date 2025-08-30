@@ -10,6 +10,8 @@ import Chat from "@/pages/chat";
 import MealPlanner from "@/pages/meal-planner";
 import CalorieTracker from "@/pages/calorie-tracker";
 import About from "@/pages/about";
+import Login from "@/pages/login";
+import Signup from "@/pages/signup";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -23,6 +25,8 @@ function Router() {
           <Route path="/meal-planner" component={MealPlanner} />
           <Route path="/calorie-tracker" component={CalorieTracker} />
           <Route path="/about" component={About} />
+          <Route path="/login" component={Login} />
+          <Route path="/signup" component={Signup} />
           <Route component={NotFound} />
         </Switch>
       </main>

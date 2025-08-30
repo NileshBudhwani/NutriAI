@@ -24,7 +24,7 @@ export default function Home() {
                     Start Chat
                   </Link>
                 </Button>
-                <Button asChild variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-primary" data-testid="button-plan-meals">
+                <Button asChild variant="outline" size="lg" className="border-white text-white bg-white/10 hover:bg-white hover:text-primary backdrop-blur-sm" data-testid="button-plan-meals">
                   <Link href="/meal-planner">
                     <Calendar className="mr-2 h-5 w-5" />
                     Plan Meals
