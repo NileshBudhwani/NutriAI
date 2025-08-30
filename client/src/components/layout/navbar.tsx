@@ -13,6 +13,7 @@ export default function Navbar() {
     { name: "AI Chat", href: "/chat" },
     { name: "Meal Planner", href: "/meal-planner" },
     { name: "Calorie Tracker", href: "/calorie-tracker" },
+    { name: "AI Agents", href: "/agents" },
     { name: "About", href: "/about" },
   ];
 
