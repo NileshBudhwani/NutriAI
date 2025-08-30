@@ -8,7 +8,7 @@ export default function Home() {
     <div>
       {/* Hero Section */}
       <section className="hero-gradient text-white py-16 lg:py-24">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 hero-content">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h1 className="text-4xl lg:text-6xl font-bold mb-6" data-testid="hero-title">
