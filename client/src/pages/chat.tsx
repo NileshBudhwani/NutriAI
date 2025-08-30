@@ -76,7 +76,7 @@ export default function Chat() {
   ];
 
   return (
-    <div className="container mx-auto px-4 py-6 h-screen flex flex-col">
+    <div className="container mx-auto px-4 py-6 min-h-[calc(100vh-12rem)] flex flex-col">
       <div className="grid lg:grid-cols-4 gap-6 flex-1">
         {/* Chat History Sidebar */}
         <div className="hidden lg:block bg-muted rounded-lg">

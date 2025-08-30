@@ -6,7 +6,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
-import MealCard from "@/components/meal-planner/meal-card";
+import MealCard, { WeeklyMealTable } from "@/components/meal-planner/meal-card";
 import { Wand2, Download, RefreshCw } from "lucide-react";
 import type { MealPlan } from "@shared/schema";
 
@@ -230,40 +230,7 @@ export default function MealPlanner() {
               
               {weeklyMeals.length > 0 && (
                 <div className="space-y-6">
-                  {weeklyMeals.map((day: any, index: number) => (
-                    <div key={index} className="border rounded-lg p-4" data-testid={`day-meal-plan-${index}`}>
-                      <h6 className="font-semibold text-primary mb-4" data-testid={`text-day-name-${index}`}>
-                        {day.day || `Day ${index + 1}`}
-                      </h6>
-                      
-                      <div className="grid md:grid-cols-3 gap-4">
-                        <MealCard
-                          title="Breakfast"
-                          icon="🌅"
-                          meal={day.meals?.breakfast}
-                          imageUrl="https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=200"
-                        />
-                        <MealCard
-                          title="Lunch"
-                          icon="☀️"
-                          meal={day.meals?.lunch}
-                          imageUrl="https://images.unsplash.com/photo-1512058564366-18510be2db19?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=200"
-                        />
-                        <MealCard
-                          title="Dinner"
-                          icon="🌙"
-                          meal={day.meals?.dinner}
-                          imageUrl="https://images.unsplash.com/photo-1467003909585-2f8a72700288?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=200"
-                        />
-                      </div>
-                      
-                      <div className="text-right mt-4">
-                        <small className="text-primary font-semibold" data-testid={`text-day-total-calories-${index}`}>
-                          Total: {day.totalCalories || 1250} calories
-                        </small>
-                      </div>
-                    </div>
-                  ))}
+                  <WeeklyMealTable weeklyMeals={weeklyMeals} />
                   
                   <div className="text-center">
                     <Button 

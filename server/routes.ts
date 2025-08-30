@@ -133,18 +133,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
           {
             "day": "Monday",
             "meals": {
-              "breakfast": {"name": "Meal Name", "calories": 300, "description": "Brief description"},
-              "lunch": {"name": "Meal Name", "calories": 400, "description": "Brief description"},
-              "dinner": {"name": "Meal Name", "calories": 500, "description": "Brief description"},
-              "snacks": [{"name": "Snack Name", "calories": 150}]
+              "breakfast": {"name": "Oatmeal with Berries", "calories": 350, "description": "Steel-cut oats with mixed berries and almonds"},
+              "lunch": {"name": "Quinoa Power Bowl", "calories": 450, "description": "Quinoa with grilled chicken and roasted vegetables"},
+              "dinner": {"name": "Grilled Salmon", "calories": 500, "description": "Grilled salmon with steamed broccoli and sweet potato"}
             },
-            "totalCalories": 1350
+            "totalCalories": 1300
+          },
+          {
+            "day": "Tuesday",
+            "meals": {
+              "breakfast": {"name": "Greek Yogurt Parfait", "calories": 320, "description": "Greek yogurt with granola and fresh fruit"},
+              "lunch": {"name": "Turkey Sandwich", "calories": 420, "description": "Whole grain turkey sandwich with avocado and vegetables"},
+              "dinner": {"name": "Chicken Stir-fry", "calories": 480, "description": "Chicken breast with mixed vegetables and brown rice"}
+            },
+            "totalCalories": 1220
           }
         ],
-        "totalWeeklyCalories": 9450
+        "totalWeeklyCalories": 8750
       }
       
-      Ensure meals are balanced, nutritious, and align with the specified goals.`;
+      Ensure meals are balanced, nutritious, and align with the specified goals. Include all 7 days of the week.`;
 
       const messages = [
         {
@@ -173,13 +181,66 @@ export async function registerRoutes(app: Express): Promise<Server> {
               meals: {
                 breakfast: { name: "Oatmeal with Berries", calories: 350, description: "Steel-cut oats topped with mixed berries and almonds" },
                 lunch: { name: "Quinoa Power Bowl", calories: 480, description: "Quinoa with grilled chicken and roasted vegetables" },
-                dinner: { name: "Salmon & Vegetables", calories: 420, description: "Grilled salmon with steamed broccoli and sweet potato" },
-                snacks: [{ name: "Greek Yogurt", calories: 150 }]
+                dinner: { name: "Salmon & Vegetables", calories: 420, description: "Grilled salmon with steamed broccoli and sweet potato" }
               },
-              totalCalories: 1400
+              totalCalories: 1250
+            },
+            {
+              day: "Tuesday", 
+              meals: {
+                breakfast: { name: "Greek Yogurt Parfait", calories: 320, description: "Greek yogurt with granola and fresh fruit" },
+                lunch: { name: "Turkey Sandwich", calories: 420, description: "Whole grain turkey sandwich with avocado" },
+                dinner: { name: "Chicken Stir-fry", calories: 480, description: "Chicken breast with mixed vegetables and brown rice" }
+              },
+              totalCalories: 1220
+            },
+            {
+              day: "Wednesday",
+              meals: {
+                breakfast: { name: "Smoothie Bowl", calories: 340, description: "Protein smoothie bowl with fruits and nuts" },
+                lunch: { name: "Lentil Soup", calories: 400, description: "Hearty lentil soup with whole grain bread" },
+                dinner: { name: "Baked Cod", calories: 450, description: "Baked cod with roasted vegetables" }
+              },
+              totalCalories: 1190
+            },
+            {
+              day: "Thursday",
+              meals: {
+                breakfast: { name: "Avocado Toast", calories: 360, description: "Whole grain toast with avocado and egg" },
+                lunch: { name: "Chicken Salad", calories: 440, description: "Grilled chicken salad with mixed greens" },
+                dinner: { name: "Beef Stir-fry", calories: 490, description: "Lean beef with vegetables and quinoa" }
+              },
+              totalCalories: 1290
+            },
+            {
+              day: "Friday",
+              meals: {
+                breakfast: { name: "Protein Pancakes", calories: 330, description: "High-protein pancakes with berries" },
+                lunch: { name: "Tuna Wrap", calories: 410, description: "Tuna wrap with vegetables and hummus" },
+                dinner: { name: "Pork Tenderloin", calories: 470, description: "Lean pork tenderloin with sweet potato" }
+              },
+              totalCalories: 1210
+            },
+            {
+              day: "Saturday",
+              meals: {
+                breakfast: { name: "Egg Scramble", calories: 380, description: "Scrambled eggs with vegetables and cheese" },
+                lunch: { name: "Buddha Bowl", calories: 460, description: "Quinoa buddha bowl with roasted vegetables" },
+                dinner: { name: "Grilled Chicken", calories: 440, description: "Grilled chicken breast with steamed vegetables" }
+              },
+              totalCalories: 1280
+            },
+            {
+              day: "Sunday",
+              meals: {
+                breakfast: { name: "French Toast", calories: 370, description: "Whole grain French toast with fresh fruit" },
+                lunch: { name: "Veggie Burger", calories: 430, description: "Plant-based burger with sweet potato fries" },
+                dinner: { name: "Salmon Fillet", calories: 460, description: "Baked salmon with asparagus and rice" }
+              },
+              totalCalories: 1260
             }
           ],
-          totalWeeklyCalories: 9800
+          totalWeeklyCalories: 8700
         };
       }
 
