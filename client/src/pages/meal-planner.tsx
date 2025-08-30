@@ -29,7 +29,7 @@ export default function MealPlanner() {
   const queryClient = useQueryClient();
   const { toast } = useToast();
 
-  const { data: mealPlans = [], isLoading } = useQuery({
+  const { data: mealPlans = [], isLoading } = useQuery<MealPlan[]>({
     queryKey: ["/api/meal-plans", MOCK_USER_ID],
     enabled: !!MOCK_USER_ID,
   });

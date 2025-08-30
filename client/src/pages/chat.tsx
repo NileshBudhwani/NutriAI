@@ -20,7 +20,7 @@ export default function Chat() {
   const queryClient = useQueryClient();
   const { toast } = useToast();
 
-  const { data: messages = [], isLoading } = useQuery({
+  const { data: messages = [], isLoading } = useQuery<ChatMessageType[]>({
     queryKey: ["/api/chat/messages", MOCK_USER_ID],
     enabled: !!MOCK_USER_ID,
   });

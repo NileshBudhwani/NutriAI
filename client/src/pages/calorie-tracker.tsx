@@ -25,7 +25,7 @@ export default function CalorieTracker() {
     },
   });
 
-  const { data: calorieEntries = [], isLoading: entriesLoading } = useQuery({
+  const { data: calorieEntries = [], isLoading: entriesLoading } = useQuery<CalorieEntry[]>({
     queryKey: ["/api/calorie-entries", MOCK_USER_ID],
     enabled: !!MOCK_USER_ID,
   });

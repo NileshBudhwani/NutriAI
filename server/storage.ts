@@ -64,7 +64,14 @@ export class MemStorage implements IStorage {
 
     commonFoods.forEach(food => {
       const id = randomUUID();
-      this.foodItems.set(id, { ...food, id });
+      this.foodItems.set(id, { 
+        ...food, 
+        id,
+        protein: food.protein || null,
+        carbs: food.carbs || null,
+        fat: food.fat || null,
+        category: food.category || null,
+      });
     });
   }
 
@@ -85,6 +92,12 @@ export class MemStorage implements IStorage {
       id,
       createdAt: new Date(),
       dietaryPreferences: insertUser.dietaryPreferences || [],
+      weight: insertUser.weight || null,
+      height: insertUser.height || null,
+      age: insertUser.age || null,
+      activityLevel: insertUser.activityLevel || null,
+      fitnessGoal: insertUser.fitnessGoal || null,
+      calorieGoal: insertUser.calorieGoal || null,
     };
     this.users.set(id, user);
     return user;
@@ -111,6 +124,7 @@ export class MemStorage implements IStorage {
       ...insertMessage,
       id,
       timestamp: new Date(),
+      userId: insertMessage.userId || null,
     };
     this.chatMessages.set(id, message);
     return message;
@@ -128,6 +142,9 @@ export class MemStorage implements IStorage {
       ...insertMealPlan,
       id,
       createdAt: new Date(),
+      userId: insertMealPlan.userId || null,
+      totalCalories: insertMealPlan.totalCalories || null,
+      targetDate: insertMealPlan.targetDate || null,
     };
     this.mealPlans.set(id, mealPlan);
     return mealPlan;
@@ -159,6 +176,10 @@ export class MemStorage implements IStorage {
     const foodItem: FoodItem = {
       ...insertFoodItem,
       id,
+      protein: insertFoodItem.protein || null,
+      carbs: insertFoodItem.carbs || null,
+      fat: insertFoodItem.fat || null,
+      category: insertFoodItem.category || null,
     };
     this.foodItems.set(id, foodItem);
     return foodItem;
@@ -193,6 +214,10 @@ export class MemStorage implements IStorage {
       ...insertEntry,
       id,
       timestamp: new Date(),
+      userId: insertEntry.userId || null,
+      foodItemId: insertEntry.foodItemId || null,
+      servings: insertEntry.servings || null,
+      mealType: insertEntry.mealType || null,
     };
     this.calorieEntries.set(id, entry);
     return entry;
