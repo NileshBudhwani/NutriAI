@@ -1,0 +1,1168 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriAI - Your AI Nutrition & Fitness Companion</title>
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                borderRadius: {
+                    lg: "var(--radius)",
+                    md: "calc(var(--radius) - 2px)",
+                    sm: "calc(var(--radius) - 4px)",
+                },
+                colors: {
+                    background: "var(--background)",
+                    foreground: "var(--foreground)",
+                    card: {
+                        DEFAULT: "var(--card)",
+                        foreground: "var(--card-foreground)",
+                    },
+                    primary: {
+                        DEFAULT: "var(--primary)",
+                        foreground: "var(--primary-foreground)",
+                    },
+                    secondary: {
+                        DEFAULT: "var(--secondary)",
+                        foreground: "var(--secondary-foreground)",
+                    },
+                    muted: {
+                        DEFAULT: "var(--muted)",
+                        foreground: "var(--muted-foreground)",
+                    },
+                    accent: {
+                        DEFAULT: "var(--accent)",
+                        foreground: "var(--accent-foreground)",
+                    },
+                    destructive: {
+                        DEFAULT: "var(--destructive)",
+                        foreground: "var(--destructive-foreground)",
+                    },
+                    border: "var(--border)",
+                    input: "var(--input)",
+                    ring: "var(--ring)",
+                }
+            },
+        }
+    };
+    </script>
+    
+    <style>
+        :root {
+            --radius: 12px;
+            --background: hsl(0 0% 100%);
+            --foreground: hsl(240 10% 3.9%);
+            --card: hsl(0 0% 100%);
+            --card-foreground: hsl(240 10% 3.9%);
+            --primary: hsl(142 76% 36%);
+            --primary-foreground: hsl(0 0% 98%);
+            --secondary: hsl(217 78% 51%);
+            --secondary-foreground: hsl(0 0% 98%);
+            --muted: hsl(210 40% 96%);
+            --muted-foreground: hsl(215 13% 65%);
+            --accent: hsl(38 92% 50%);
+            --accent-foreground: hsl(0 0% 98%);
+            --destructive: hsl(0 85% 60%);
+            --destructive-foreground: hsl(0 0% 98%);
+            --border: hsl(214 32% 91%);
+            --input: hsl(214 32% 91%);
+            --ring: hsl(142 76% 36%);
+        }
+        
+        /* Dark mode */
+        [data-theme="dark"] {
+            --background: hsl(240 10% 3.9%);
+            --foreground: hsl(0 0% 98%);
+            --card: hsl(240 10% 7%);
+            --card-foreground: hsl(0 0% 98%);
+            --primary: hsl(142 76% 36%);
+            --primary-foreground: hsl(0 0% 98%);
+            --secondary: hsl(217 78% 51%);
+            --secondary-foreground: hsl(0 0% 98%);
+            --muted: hsl(240 3.7% 15.9%);
+            --muted-foreground: hsl(240 5% 64.9%);
+            --accent: hsl(38 92% 50%);
+            --accent-foreground: hsl(0 0% 98%);
+            --destructive: hsl(0 85% 60%);
+            --destructive-foreground: hsl(0 0% 98%);
+            --border: hsl(240 3.7% 15.9%);
+            --input: hsl(240 3.7% 15.9%);
+            --ring: hsl(142 76% 36%);
+        }
+
+        * {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        body {
+            background-color: hsl(var(--background));
+            color: hsl(var(--foreground));
+            line-height: 1.6;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--secondary)) 100%);
+        }
+        
+        .feature-card {
+            transition: all 0.3s ease;
+            border: 1px solid hsl(var(--border));
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .chat-message {
+            animation: slideInUp 0.3s ease-out;
+        }
+        
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .typing-indicator {
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+        
+        .btn-primary {
+            background-color: hsl(var(--primary));
+            border-color: hsl(var(--primary));
+            font-weight: 500;
+        }
+        
+        .btn-primary:hover {
+            background-color: hsl(var(--primary));
+            border-color: hsl(var(--primary));
+            opacity: 0.9;
+        }
+        
+        .btn-outline-primary {
+            color: hsl(var(--primary));
+            border-color: hsl(var(--primary));
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: hsl(var(--primary));
+            border-color: hsl(var(--primary));
+        }
+        
+        .nutrition-stat {
+            background: linear-gradient(45deg, hsl(var(--muted)), hsl(var(--card)));
+        }
+        
+        .page-section {
+            display: none;
+        }
+        
+        .page-section.active {
+            display: block;
+        }
+        
+        .food-item {
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        
+        .food-item:hover {
+            background-color: hsl(var(--muted));
+        }
+        
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+    </style>
+</head>
+<body>
+    <!-- @COMPONENT: Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand text-primary" href="#" onclick="showPage('home')">
+                <i class="fas fa-leaf me-2"></i>NutriAI
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showPage('home')">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showPage('chat')">AI Chat</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showPage('meal-planner')">Meal Planner</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showPage('calorie-tracker')">Calorie Tracker</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showPage('about')">About</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <button class="btn btn-outline-primary me-2" data-mock="true">Login</button>
+                    <button class="btn btn-primary" data-mock="true">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- @END_COMPONENT: Navigation -->
+
+    <!-- @COMPONENT: HomePage -->
+    <div id="home-page" class="page-section active">
+        <!-- Hero Section -->
+        <section class="hero-gradient text-white py-5">
+            <div class="container">
+                <div class="row align-items-center min-vh-75">
+                    <div class="col-lg-6">
+                        <h1 class="display-4 fw-bold mb-4">Your AI-Powered Nutrition & Fitness Companion</h1>
+                        <p class="lead mb-4">Get personalized meal plans, track calories, and receive expert nutrition advice powered by advanced AI technology.</p>
+                        <div class="d-flex flex-wrap gap-3">
+                            <button class="btn btn-light btn-lg" onclick="showPage('chat')">
+                                <i class="fas fa-comments me-2"></i>Start Chat
+                            </button>
+                            <button class="btn btn-outline-light btn-lg" onclick="showPage('meal-planner')">
+                                <i class="fas fa-utensils me-2"></i>Plan Meals
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 text-center">
+                        <!-- A vibrant bowl of colorful fresh vegetables and fruits arranged beautifully -->
+                        <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600" 
+                             alt="Healthy colorful food bowl" 
+                             class="img-fluid rounded-4 shadow-lg" />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="py-5 bg-light">
+            <div class="container">
+                <div class="text-center mb-5">
+                    <h2 class="fw-bold">Powered by Advanced AI</h2>
+                    <p class="text-muted">Discover how NutriAI can transform your health journey</p>
+                </div>
+                
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card feature-card h-100 text-center p-4">
+                            <div class="text-primary mb-3">
+                                <i class="fas fa-robot fa-3x"></i>
+                            </div>
+                            <h5 class="fw-semibold">AI Chatbot</h5>
+                            <p class="text-muted">Get instant nutrition advice and answers to your health questions</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card feature-card h-100 text-center p-4">
+                            <div class="text-secondary mb-3">
+                                <i class="fas fa-calendar-alt fa-3x"></i>
+                            </div>
+                            <h5 class="fw-semibold">Meal Planning</h5>
+                            <p class="text-muted">Generate personalized weekly meal plans based on your goals</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card feature-card h-100 text-center p-4">
+                            <div class="text-accent mb-3">
+                                <i class="fas fa-calculator fa-3x"></i>
+                            </div>
+                            <h5 class="fw-semibold">Calorie Tracking</h5>
+                            <p class="text-muted">Easily track your daily calorie intake with our smart calculator</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card feature-card h-100 text-center p-4">
+                            <div class="text-primary mb-3">
+                                <i class="fas fa-dumbbell fa-3x"></i>
+                            </div>
+                            <h5 class="fw-semibold">Fitness Tips</h5>
+                            <p class="text-muted">Receive personalized workout recommendations based on your BMI</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section class="py-5">
+            <div class="container">
+                <div class="text-center mb-5">
+                    <h2 class="fw-bold">How NutriAI Works</h2>
+                    <p class="text-muted">Simple steps to achieve your health goals</p>
+                </div>
+                
+                <div class="row g-4">
+                    <div class="col-md-4 text-center">
+                        <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                            <i class="fas fa-user-plus fa-2x"></i>
+                        </div>
+                        <h5 class="fw-semibold">1. Create Profile</h5>
+                        <p class="text-muted">Tell us about your health goals, dietary preferences, and fitness level</p>
+                    </div>
+                    
+                    <div class="col-md-4 text-center">
+                        <div class="bg-secondary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                            <i class="fas fa-brain fa-2x"></i>
+                        </div>
+                        <h5 class="fw-semibold">2. AI Analysis</h5>
+                        <p class="text-muted">Our AI analyzes your data to create personalized recommendations</p>
+                    </div>
+                    
+                    <div class="col-md-4 text-center">
+                        <div class="bg-accent text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                            <i class="fas fa-chart-line fa-2x"></i>
+                        </div>
+                        <h5 class="fw-semibold">3. Track Progress</h5>
+                        <p class="text-muted">Monitor your journey with detailed insights and continuous AI support</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- @END_COMPONENT: HomePage -->
+
+    <!-- @COMPONENT: ChatPage -->
+    <div id="chat-page" class="page-section">
+        <div class="container-fluid h-100">
+            <div class="row h-100">
+                <!-- Chat History Sidebar -->
+                <div class="col-md-3 bg-muted p-0 d-none d-md-block">
+                    <div class="p-4 border-bottom">
+                        <h6 class="fw-semibold mb-0">Chat History</h6>
+                    </div>
+                    <div class="p-3">
+                        <div class="list-group list-group-flush">
+                            <a href="#" class="list-group-item list-group-item-action border-0 rounded mb-2" data-mock="true">
+                                <div class="fw-medium">Meal Planning Discussion</div>
+                                <small class="text-muted">2 hours ago</small>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action border-0 rounded mb-2" data-mock="true">
+                                <div class="fw-medium">Calorie Questions</div>
+                                <small class="text-muted">Yesterday</small>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action border-0 rounded mb-2" data-mock="true">
+                                <div class="fw-medium">Workout Recommendations</div>
+                                <small class="text-muted">3 days ago</small>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Main Chat Area -->
+                <div class="col-md-9 d-flex flex-column" style="height: calc(100vh - 76px);">
+                    <!-- Chat Header -->
+                    <div class="bg-white border-bottom p-4">
+                        <div class="d-flex align-items-center">
+                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div>
+                                <h5 class="mb-0 fw-semibold">NutriAI Assistant</h5>
+                                <small class="text-success">
+                                    <i class="fas fa-circle me-1" style="font-size: 8px;"></i>Online
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Chat Messages -->
+                    <div class="flex-grow-1 overflow-auto p-4" id="chat-messages">
+                        <!-- AI Welcome Message -->
+                        <div class="chat-message mb-4">
+                            <div class="d-flex">
+                                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                    <i class="fas fa-robot"></i>
+                                </div>
+                                <div class="bg-light rounded-4 p-3 flex-grow-1">
+                                    <p class="mb-0">Hi there! I'm NutriAI, your personal nutrition and fitness assistant. I can help you with meal planning, calorie counting, diet recommendations, and fitness tips. What would you like to know today?</p>
+                                    <small class="text-muted">Just now</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- User Message Example -->
+                        <div class="chat-message mb-4">
+                            <div class="d-flex justify-content-end">
+                                <div class="bg-primary text-white rounded-4 p-3" style="max-width: 70%;" data-mock="true">
+                                    <p class="mb-0">Can you help me create a meal plan for weight loss?</p>
+                                    <small class="opacity-75">2 minutes ago</small>
+                                </div>
+                                <div class="bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center ms-3" style="width: 40px; height: 40px;">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- AI Response -->
+                        <div class="chat-message mb-4">
+                            <div class="d-flex">
+                                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                    <i class="fas fa-robot"></i>
+                                </div>
+                                <div class="bg-light rounded-4 p-3 flex-grow-1" data-mock="true">
+                                    <p class="mb-2">Absolutely! I'd love to help you create a personalized weight loss meal plan. To give you the best recommendations, I'll need some information:</p>
+                                    <ul class="mb-2">
+                                        <li>Your current weight and goal weight</li>
+                                        <li>Any dietary restrictions or preferences</li>
+                                        <li>Your activity level</li>
+                                        <li>Preferred meal times and cooking style</li>
+                                    </ul>
+                                    <p class="mb-0">Would you like to start with a quick assessment, or do you have specific questions about nutrition?</p>
+                                    <small class="text-muted">1 minute ago</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Typing Indicator -->
+                        <div class="chat-message mb-4 typing-indicator" id="typing-indicator" style="display: none;">
+                            <div class="d-flex">
+                                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                    <i class="fas fa-robot"></i>
+                                </div>
+                                <div class="bg-light rounded-4 p-3">
+                                    <div class="d-flex align-items-center">
+                                        <div class="spinner-grow spinner-grow-sm text-primary me-2"></div>
+                                        <span class="text-muted">NutriAI is typing...</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Chat Input -->
+                    <div class="border-top p-4 bg-white">
+                        <div class="row g-2">
+                            <div class="col">
+                                <div class="input-group">
+                                    <input type="text" class="form-control form-control-lg" 
+                                           placeholder="Ask me about nutrition, calories, or fitness..." 
+                                           id="chat-input"
+                                           data-implementation="Connect to Groq API with mixtral-8x7b-32768 model">
+                                    <button class="btn btn-primary" type="button" onclick="sendMessage()" data-event="click:sendMessage">
+                                        <i class="fas fa-paper-plane"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <small class="text-muted">
+                                <i class="fas fa-lightbulb me-1"></i>
+                                Try: "Create a 1500 calorie meal plan" or "What's the nutritional value of quinoa?"
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- @END_COMPONENT: ChatPage -->
+
+    <!-- @COMPONENT: MealPlannerPage -->
+    <div id="meal-planner-page" class="page-section">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0"><i class="fas fa-cogs me-2"></i>Meal Plan Generator</h5>
+                        </div>
+                        <div class="card-body">
+                            <form data-implementation="Connect to AI meal planning logic">
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold">Daily Calorie Goal</label>
+                                    <select class="form-select" data-bind="user.calorieGoal">
+                                        <option>1200 calories</option>
+                                        <option selected>1500 calories</option>
+                                        <option>1800 calories</option>
+                                        <option>2000 calories</option>
+                                        <option>2500 calories</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold">Dietary Preferences</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="vegetarian">
+                                        <label class="form-check-label" for="vegetarian">Vegetarian</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="vegan">
+                                        <label class="form-check-label" for="vegan">Vegan</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="glutenfree">
+                                        <label class="form-check-label" for="glutenfree">Gluten-Free</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="keto">
+                                        <label class="form-check-label" for="keto">Keto</label>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold">Fitness Goal</label>
+                                    <select class="form-select" data-bind="user.fitnessGoal">
+                                        <option>Weight Loss</option>
+                                        <option>Muscle Gain</option>
+                                        <option>Maintenance</option>
+                                        <option>Endurance</option>
+                                    </select>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary w-100" data-event="click:generateMealPlan">
+                                    <i class="fas fa-magic me-2"></i>Generate Meal Plan
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Stats -->
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h6 class="fw-semibold mb-3">Today's Overview</h6>
+                            <div class="row text-center">
+                                <div class="col-6">
+                                    <div class="nutrition-stat rounded p-3 mb-2">
+                                        <div class="h4 text-primary fw-bold mb-0" data-bind="stats.calories">1,247</div>
+                                        <small class="text-muted">Calories</small>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="nutrition-stat rounded p-3 mb-2">
+                                        <div class="h4 text-secondary fw-bold mb-0" data-bind="stats.protein">85g</div>
+                                        <small class="text-muted">Protein</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-8">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-white border-bottom">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0 fw-semibold">Your Weekly Meal Plan</h5>
+                                <button class="btn btn-outline-secondary btn-sm" data-event="click:exportMealPlan">
+                                    <i class="fas fa-download me-1"></i>Export
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <!-- Weekly Meal Plan Grid -->
+                            <div class="row g-3">
+                                <!-- @MAP: weekDays.map(day => ( -->
+                                <div class="col-12">
+                                    <div class="border rounded-3 p-3">
+                                        <h6 class="fw-semibold text-primary mb-3" data-bind="day.name">Monday</h6>
+                                        
+                                        <div class="row g-3">
+                                            <div class="col-md-4">
+                                                <div class="meal-card bg-light rounded p-3">
+                                                    <div class="d-flex align-items-center mb-2">
+                                                        <i class="fas fa-sun text-warning me-2"></i>
+                                                        <h6 class="mb-0 fw-semibold">Breakfast</h6>
+                                                    </div>
+                                                    <!-- A bowl of oatmeal topped with fresh berries and nuts -->
+                                                    <img src="https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&h=200" 
+                                                         alt="Healthy breakfast bowl" 
+                                                         class="img-fluid rounded mb-2" data-mock-image="true">
+                                                    <p class="mb-1 fw-medium" data-bind="meal.breakfast.name">Oatmeal with Berries</p>
+                                                    <small class="text-muted" data-bind="meal.breakfast.calories">350 calories</small>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-md-4">
+                                                <div class="meal-card bg-light rounded p-3">
+                                                    <div class="d-flex align-items-center mb-2">
+                                                        <i class="fas fa-sun text-accent me-2"></i>
+                                                        <h6 class="mb-0 fw-semibold">Lunch</h6>
+                                                    </div>
+                                                    <!-- A fresh quinoa salad with colorful vegetables and grilled chicken -->
+                                                    <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&h=200" 
+                                                         alt="Quinoa salad with vegetables" 
+                                                         class="img-fluid rounded mb-2" data-mock-image="true">
+                                                    <p class="mb-1 fw-medium" data-bind="meal.lunch.name">Quinoa Power Bowl</p>
+                                                    <small class="text-muted" data-bind="meal.lunch.calories">480 calories</small>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-md-4">
+                                                <div class="meal-card bg-light rounded p-3">
+                                                    <div class="d-flex align-items-center mb-2">
+                                                        <i class="fas fa-moon text-secondary me-2"></i>
+                                                        <h6 class="mb-0 fw-semibold">Dinner</h6>
+                                                    </div>
+                                                    <!-- Grilled salmon with roasted vegetables on a white plate -->
+                                                    <img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&h=200" 
+                                                         alt="Grilled salmon with vegetables" 
+                                                         class="img-fluid rounded mb-2" data-mock-image="true">
+                                                    <p class="mb-1 fw-medium" data-bind="meal.dinner.name">Salmon & Vegetables</p>
+                                                    <small class="text-muted" data-bind="meal.dinner.calories">420 calories</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="text-end mt-3">
+                                            <small class="text-primary fw-semibold" data-bind="day.totalCalories">Total: 1,250 calories</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- @END_MAP )) -->
+                            </div>
+                            
+                            <div class="text-center mt-4">
+                                <button class="btn btn-outline-primary" data-event="click:regeneratePlan">
+                                    <i class="fas fa-sync-alt me-2"></i>Regenerate Plan
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- @END_COMPONENT: MealPlannerPage -->
+
+    <!-- @COMPONENT: CalorieTrackerPage -->
+    <div id="calorie-tracker-page" class="page-section">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-header bg-white">
+                            <h5 class="mb-0 fw-semibold"><i class="fas fa-utensils me-2 text-primary"></i>Food Logger</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control form-control-lg" 
+                                       placeholder="Search for food items..." 
+                                       id="food-search"
+                                       data-implementation="Connect to food database API">
+                                <button class="btn btn-outline-secondary" type="button">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                            
+                            <!-- Food Search Results -->
+                            <div class="food-results mb-4" data-implementation="Display search results from food database">
+                                <h6 class="fw-semibold mb-3">Popular Foods</h6>
+                                <div class="list-group">
+                                    <!-- @MAP: popularFoods.map(food => ( -->
+                                    <div class="list-group-item food-item d-flex justify-content-between align-items-center" data-event="click:addFood" data-mock="true">
+                                        <div class="d-flex align-items-center">
+                                            <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                                <i class="fas fa-apple-alt text-white"></i>
+                                            </div>
+                                            <div>
+                                                <div class="fw-medium" data-bind="food.name">Apple, medium</div>
+                                                <small class="text-muted" data-bind="food.serving">1 medium (182g)</small>
+                                            </div>
+                                        </div>
+                                        <div class="text-end">
+                                            <div class="fw-semibold" data-bind="food.calories">95 cal</div>
+                                            <small class="text-muted">per serving</small>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list-group-item food-item d-flex justify-content-between align-items-center" data-event="click:addFood" data-mock="true">
+                                        <div class="d-flex align-items-center">
+                                            <div class="bg-secondary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                                <i class="fas fa-drumstick-bite text-white"></i>
+                                            </div>
+                                            <div>
+                                                <div class="fw-medium" data-bind="food.name">Chicken Breast</div>
+                                                <small class="text-muted" data-bind="food.serving">100g grilled</small>
+                                            </div>
+                                        </div>
+                                        <div class="text-end">
+                                            <div class="fw-semibold" data-bind="food.calories">165 cal</div>
+                                            <small class="text-muted">per 100g</small>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list-group-item food-item d-flex justify-content-between align-items-center" data-event="click:addFood" data-mock="true">
+                                        <div class="d-flex align-items-center">
+                                            <div class="bg-accent rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                                <i class="fas fa-seedling text-white"></i>
+                                            </div>
+                                            <div>
+                                                <div class="fw-medium" data-bind="food.name">Quinoa, cooked</div>
+                                                <small class="text-muted" data-bind="food.serving">1 cup (185g)</small>
+                                            </div>
+                                        </div>
+                                        <div class="text-end">
+                                            <div class="fw-semibold" data-bind="food.calories">222 cal</div>
+                                            <small class="text-muted">per cup</small>
+                                        </div>
+                                    </div>
+                                    <!-- @END_MAP )) -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                    <!-- Daily Progress -->
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-header bg-white">
+                            <h5 class="mb-0 fw-semibold"><i class="fas fa-chart-pie me-2 text-secondary"></i>Today's Progress</h5>
+                        </div>
+                        <div class="card-body text-center">
+                            <!-- Circular Progress -->
+                            <div class="position-relative d-inline-block mb-4">
+                                <svg width="120" height="120" class="progress-ring">
+                                    <circle cx="60" cy="60" r="50" stroke="hsl(var(--muted))" stroke-width="8" fill="none"/>
+                                    <circle cx="60" cy="60" r="50" stroke="hsl(var(--primary))" stroke-width="8" fill="none"
+                                            stroke-dasharray="314" stroke-dashoffset="94" stroke-linecap="round"/>
+                                </svg>
+                                <div class="position-absolute top-50 start-50 translate-middle text-center">
+                                    <div class="h4 fw-bold mb-0" data-bind="progress.calories">1,247</div>
+                                    <small class="text-muted">/ 1,500 cal</small>
+                                </div>
+                            </div>
+                            
+                            <div class="row text-center">
+                                <div class="col-4">
+                                    <div class="text-primary fw-semibold" data-bind="macros.carbs">45%</div>
+                                    <small class="text-muted">Carbs</small>
+                                </div>
+                                <div class="col-4">
+                                    <div class="text-secondary fw-semibold" data-bind="macros.protein">30%</div>
+                                    <small class="text-muted">Protein</small>
+                                </div>
+                                <div class="col-4">
+                                    <div class="text-accent fw-semibold" data-bind="macros.fat">25%</div>
+                                    <small class="text-muted">Fat</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Recent Foods -->
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-white">
+                            <h6 class="mb-0 fw-semibold">Recent Foods</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="list-group list-group-flush">
+                                <!-- @MAP: recentFoods.map(food => ( -->
+                                <div class="list-group-item border-0 px-0 d-flex justify-content-between" data-mock="true">
+                                    <div>
+                                        <div class="fw-medium" data-bind="food.name">Greek Yogurt</div>
+                                        <small class="text-muted" data-bind="food.time">Breakfast, 8:30 AM</small>
+                                    </div>
+                                    <div class="text-end">
+                                        <div class="fw-semibold" data-bind="food.calories">130 cal</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="list-group-item border-0 px-0 d-flex justify-content-between" data-mock="true">
+                                    <div>
+                                        <div class="fw-medium" data-bind="food.name">Banana</div>
+                                        <small class="text-muted" data-bind="food.time">Snack, 10:15 AM</small>
+                                    </div>
+                                    <div class="text-end">
+                                        <div class="fw-semibold" data-bind="food.calories">105 cal</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="list-group-item border-0 px-0 d-flex justify-content-between" data-mock="true">
+                                    <div>
+                                        <div class="fw-medium" data-bind="food.name">Grilled Chicken Salad</div>
+                                        <small class="text-muted" data-bind="food.time">Lunch, 12:45 PM</small>
+                                    </div>
+                                    <div class="text-end">
+                                        <div class="fw-semibold" data-bind="food.calories">380 cal</div>
+                                    </div>
+                                </div>
+                                <!-- @END_MAP )) -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- @END_COMPONENT: CalorieTrackerPage -->
+
+    <!-- @COMPONENT: AboutPage -->
+    <div id="about-page" class="page-section">
+        <div class="container py-5">
+            <!-- Hero Section -->
+            <div class="text-center mb-5">
+                <h1 class="display-5 fw-bold text-primary mb-4">About NutriAI</h1>
+                <p class="lead text-muted mb-4">Revolutionizing nutrition and fitness with the power of artificial intelligence</p>
+                <!-- A diverse group of people doing various fitness activities in a modern gym -->
+                <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1200&h=400" 
+                     alt="People exercising in modern gym" 
+                     class="img-fluid rounded-4 shadow-lg mb-5">
+            </div>
+            
+            <div class="row g-5">
+                <div class="col-lg-6">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body p-5">
+                            <h3 class="fw-bold text-secondary mb-4">Our Mission</h3>
+                            <p class="mb-4">NutriAI was created to democratize access to personalized nutrition and fitness guidance. We believe everyone deserves expert-level advice tailored to their unique needs and goals.</p>
+                            <p class="mb-4">Using cutting-edge AI technology, we provide instant, accurate, and personalized recommendations that adapt to your lifestyle, preferences, and health objectives.</p>
+                            
+                            <h5 class="fw-semibold text-primary mb-3">Key Features:</h5>
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>AI-powered nutrition chatbot</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Personalized meal planning</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Intelligent calorie tracking</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Custom fitness recommendations</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Continuous learning and adaptation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body p-5">
+                            <h3 class="fw-bold text-accent mb-4">The Technology</h3>
+                            <p class="mb-4">NutriAI leverages the powerful Groq API with the mixtral-8x7b-32768 model to deliver lightning-fast, contextually aware responses to all your nutrition and fitness questions.</p>
+                            
+                            <div class="row g-3 mb-4">
+                                <div class="col-6">
+                                    <div class="bg-light rounded p-3 text-center">
+                                        <i class="fas fa-brain text-primary fa-2x mb-2"></i>
+                                        <h6 class="fw-semibold">Advanced AI</h6>
+                                        <small class="text-muted">Groq-powered intelligence</small>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="bg-light rounded p-3 text-center">
+                                        <i class="fas fa-database text-secondary fa-2x mb-2"></i>
+                                        <h6 class="fw-semibold">Rich Database</h6>
+                                        <small class="text-muted">Comprehensive food data</small>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="bg-light rounded p-3 text-center">
+                                        <i class="fas fa-mobile-alt text-accent fa-2x mb-2"></i>
+                                        <h6 class="fw-semibold">Mobile Ready</h6>
+                                        <small class="text-muted">Responsive design</small>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="bg-light rounded p-3 text-center">
+                                        <i class="fas fa-shield-alt text-success fa-2x mb-2"></i>
+                                        <h6 class="fw-semibold">Secure</h6>
+                                        <small class="text-muted">Privacy-focused</small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h5 class="fw-semibold text-primary mb-3">Built For Hackathon:</h5>
+                            <p class="mb-0">This project was developed as a complete, production-ready solution showcasing the potential of AI in personal health technology. Our clean, scalable architecture makes it easy to extend and customize.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Team Section -->
+            <div class="row mt-5">
+                <div class="col-12">
+                    <div class="card shadow-sm">
+                        <div class="card-body p-5 text-center">
+                            <h3 class="fw-bold mb-4">Built with ❤️ for Hackathon</h3>
+                            <p class="lead text-muted mb-4">Demonstrating the power of AI in personal health technology</p>
+                            
+                            <div class="row g-4">
+                                <div class="col-md-3">
+                                    <div class="text-primary mb-2">
+                                        <i class="fab fa-react fa-3x"></i>
+                                    </div>
+                                    <h6 class="fw-semibold">Next.js</h6>
+                                    <small class="text-muted">Frontend Framework</small>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="text-secondary mb-2">
+                                        <i class="fab fa-node-js fa-3x"></i>
+                                    </div>
+                                    <h6 class="fw-semibold">Node.js</h6>
+                                    <small class="text-muted">Backend Runtime</small>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="text-accent mb-2">
+                                        <i class="fas fa-database fa-3x"></i>
+                                    </div>
+                                    <h6 class="fw-semibold">MySQL</h6>
+                                    <small class="text-muted">Database</small>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="text-success mb-2">
+                                        <i class="fas fa-bolt fa-3x"></i>
+                                    </div>
+                                    <h6 class="fw-semibold">Groq API</h6>
+                                    <small class="text-muted">AI Engine</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- @END_COMPONENT: AboutPage -->
+
+    <!-- @COMPONENT: Footer -->
+    <footer class="bg-dark text-white py-5 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h5 class="fw-bold text-primary">
+                        <i class="fas fa-leaf me-2"></i>NutriAI
+                    </h5>
+                    <p class="text-light">Your AI-powered companion for better nutrition and fitness. Making healthy living accessible and personalized for everyone.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-light" data-mock="true"><i class="fab fa-twitter fa-lg"></i></a>
+                        <a href="#" class="text-light" data-mock="true"><i class="fab fa-facebook fa-lg"></i></a>
+                        <a href="#" class="text-light" data-mock="true"><i class="fab fa-instagram fa-lg"></i></a>
+                        <a href="#" class="text-light" data-mock="true"><i class="fab fa-linkedin fa-lg"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6 class="fw-semibold">Features</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light text-decoration-none" onclick="showPage('chat')">AI Chat</a></li>
+                        <li><a href="#" class="text-light text-decoration-none" onclick="showPage('meal-planner')">Meal Plans</a></li>
+                        <li><a href="#" class="text-light text-decoration-none" onclick="showPage('calorie-tracker')">Calorie Tracker</a></li>
+                        <li><a href="#" class="text-light text-decoration-none">Fitness Tips</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6 class="fw-semibold">Company</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light text-decoration-none" onclick="showPage('about')">About</a></li>
+                        <li><a href="#" class="text-light text-decoration-none" data-mock="true">Privacy</a></li>
+                        <li><a href="#" class="text-light text-decoration-none" data-mock="true">Terms</a></li>
+                        <li><a href="#" class="text-light text-decoration-none" data-mock="true">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-4 mb-4">
+                    <h6 class="fw-semibold">Stay Updated</h6>
+                    <p class="text-light">Get the latest nutrition tips and AI insights delivered to your inbox.</p>
+                    <div class="input-group" data-mock="true">
+                        <input type="email" class="form-control" placeholder="Enter your email">
+                        <button class="btn btn-primary" type="button">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            
+            <hr class="my-4 border-secondary">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="mb-0 text-light">&copy; 2024 NutriAI. Built for Hackathon. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <small class="text-muted">Powered by Groq AI Technology</small>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- @END_COMPONENT: Footer -->
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="position-fixed top-0 start-0 w-100 h-100 bg-white d-flex align-items-center justify-content-center" style="z-index: 9999; display: none !important;">
+        <div class="text-center">
+            <div class="spinner-border text-primary mb-3" style="width: 3rem; height: 3rem;"></div>
+            <h5 class="fw-semibold">NutriAI is thinking...</h5>
+            <p class="text-muted">Generating your personalized recommendations</p>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+    (function() {
+        'use strict';
+        
+        // Page navigation system
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page-section').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            const targetPage = document.getElementById(pageId + '-page');
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+            
+            // Update navbar active state
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+        }
+        
+        // Make showPage globally available
+        window.showPage = showPage;
+        
+        // Chat functionality
+        function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // Add user message to chat
+            addChatMessage(message, 'user');
+            input.value = '';
+            
+            // Show typing indicator
+            showTypingIndicator();
+            
+            // Simulate AI response (in real implementation, this would call Groq API)
+            setTimeout(() => {
+                hideTypingIndicator();
+                addChatMessage(generateAIResponse(message), 'ai');
+            }, 2000);
+        }
+        
+        // Make sendMessage globally available
+        window.sendMessage = sendMessage;
+        
+        function addChatMessage(message, sender) {
+            const chatMessages = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'chat-message mb-4';
+            
+            if (sender === 'user') {
+                messageDiv.innerHTML = `
+                    <div class="d-flex justify-content-end">
+                        <div class="bg-primary text-white rounded-4 p-3" style="max-width: 70%;">
+                            <p class="mb-0">${message}</p>
+                            <small class="opacity-75">Just now</small>
+                        </div>
+                        <div class="bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center ms-3" style="width: 40px; height: 40px;">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </div>
+                `;
+            } else {
+                messageDiv.innerHTML = `
+                    <div class="d-flex">
+                        <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="bg-light rounded-4 p-3 flex-grow-1">
+                            <p class="mb-0">${message}</p>
+                            <small class="text-muted">Just now</small>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        function showTypingIndicator() {
+            document.getElementById('typing-indicator').style.display = 'block';
+            const chatMessages = document.getElementById('chat-messages');
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        function hideTypingIndicator() {
+            document.getElementById('typing-indicator').style.display = 'none';
+        }
+        
+        function generateAIResponse(userMessage) {
+            // TODO: Implement Groq API integration with mixtral-8x7b-32768 model
+            const responses = [
+                "Great question! Based on your goals, I recommend focusing on a balanced approach with lean proteins, complex carbohydrates, and healthy fats. Would you like me to create a specific meal plan for you?",
+                "That's an excellent choice for your health journey! Let me analyze your requirements and provide personalized recommendations. What's your current activity level?",
+                "I can definitely help with that! For optimal results, consider tracking your macros alongside calories. Would you like me to show you how to calculate your ideal macro distribution?",
+                "Perfect! Based on current nutrition science, I suggest incorporating more whole foods and reducing processed items. Shall we start with a weekly meal planning session?"
+            ];
+            
+            return responses[Math.floor(Math.random() * responses.length)];
+        }
+        
+        // Enter key support for chat
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatInput = document.getElementById('chat-input');
+            if (chatInput) {
+                chatInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        sendMessage();
+                    }
+                });
+            }
+        });
+        
+        // Loading simulation for demo purposes
+        function showLoading() {
+            document.getElementById('loading-overlay').style.display = 'flex';
+            setTimeout(() => {
+                document.getElementById('loading-overlay').style.display = 'none';
+            }, 1500);
+        }
+        
+        // Food item click handlers
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.food-item')) {
+                // TODO: Implement add food to tracker functionality
+                const foodName = e.target.closest('.food-item').querySelector('[data-bind*="food.name"]').textContent;
+                alert(`Added "${foodName}" to your tracker! (This would be implemented with real functionality)`);
+            }
+        });
+        
+        // Form submission handlers
+        document.addEventListener('submit', function(e) {
+            e.preventDefault();
+            showLoading();
+            // TODO: Implement form submission logic
+        });
+        
+    })();
+    </script>
+</body>
+</html>
