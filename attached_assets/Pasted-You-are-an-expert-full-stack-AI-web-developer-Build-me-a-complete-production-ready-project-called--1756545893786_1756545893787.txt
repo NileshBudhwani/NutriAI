@@ -1,0 +1,51 @@
+You are an expert full-stack AI web developer. Build me a complete, production-ready project called **NutriAI** for a hackathon. Follow these instructions carefully:
+
+### Tech Stack:
+- **Frontend:** Next.js + Bootstrap (clean, responsive, hackathon-ready UI)
+- **Backend:** Node.js + Express
+- **Database:** MySQL (optional for saving meal plans & user profiles)
+- **API:** Groq API for chatbot & AI features
+- **UI Design:** Attractive, minimal, mobile-friendly
+
+### Website Features:
+1. **Homepage:**
+   - Modern hero section introducing NutriAI.
+   - Simple navbar, footer, and responsive Bootstrap layout.
+
+2. **AI Chatbot (Groq API Integration):**
+   - Users can chat with NutriAI about nutrition and fitness.
+   - Use Groq's **mixtral-8x7b-32768** model for responses.
+   - Typing animation, chat history, and smooth UI.
+
+3. **Agentic AI Features:**
+   - **Meal Planning** → Generate weekly meal plans based on user goals.
+   - **Calorie Counting** → Users enter foods; NutriAI calculates calories.
+   - **Diet Recommendations** → Suggest balanced diets.
+   - **Personalized Advice** → Chatbot remembers past context.
+   - **Fitness Tips** → AI recommends workouts based on BMI.
+
+4. **Authentication (Optional):**
+   - Simple signup/login using JWT.
+
+5. **Admin Panel (Optional):**
+   - Add, edit, or delete food items and calorie data.
+
+### Requirements:
+- Use `.env` for the **Groq API key**.
+- Build clean, reusable **React components**.
+- Bootstrap UI must be modern, fast, and hackathon-ready.
+- Include **loading spinners** and proper error handling.
+- Keep code **well-commented** and structured for scalability.
+
+### Example Pages:
+- `/` → Homepage
+- `/chat` → NutriAI chatbot page
+- `/meal-planner` → AI-powered meal planning
+- `/calorie-tracker` → Food & calorie calculation
+- `/about` → About NutriAI and hackathon team
+
+### Deliverables:
+- Full project with `frontend/` and `backend/` folders.
+- Ready-to-run code with clear installation instructions.
+- Fully working chatbot integrated with Groq API.
+- Agentic AI features properly implemented.
