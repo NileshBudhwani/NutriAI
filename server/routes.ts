@@ -11,26 +11,33 @@ async function callGroqAPI(messages: Array<{role: string, content: string}>) {
     throw new Error("Groq API key not found in environment variables");
   }
 
-  const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      "Authorization": `Bearer ${GROQ_API_KEY}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      model: "mixtral-8x7b-32768",
-      messages,
-      temperature: 0.7,
-      max_tokens: 1000,
-    }),
-  });
+  try {
+    const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${GROQ_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        model: "llama3-8b-8192",
+        messages,
+        temperature: 0.7,
+        max_tokens: 1000,
+      }),
+    });
 
-  if (!response.ok) {
-    throw new Error(`Groq API error: ${response.statusText}`);
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Groq API error details:", errorText);
+      throw new Error(`Groq API error: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data.choices[0]?.message?.content || "I apologize, but I couldn't generate a response at the moment.";
+  } catch (error) {
+    console.error("Groq API call failed:", error);
+    throw error;
   }
-
-  const data = await response.json();
-  return data.choices[0]?.message?.content || "I apologize, but I couldn't generate a response at the moment.";
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {
